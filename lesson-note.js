@@ -53,3 +53,44 @@ console.log(__filename)
         console.log(obj) --> hello
 
 */
+
+
+
+
+/*
+
+    OS file 
+
+        + Syntax: const os = require("os")
+
+        + Useful Functions: os.platform(), os.homedir()
+
+*/
+
+const os = require("os")
+console.log(os.platform(), os.homedir())
+
+
+
+
+/*
+
+    Fire System (Check file.js) --> used for small files
+
+        + Read File: readFile(pathString, callbackFunc) 
+            
+            --> Asynchronous 
+
+        + Write File: writeFile(pathString, newString, callbackFunc) 
+
+            --> If the path does not exist, it will create a new file
+
+        + Check if directory exists: fs.existsSync("path")
+
+        + Create Folder: fs.mkdir("path", callbackFunc)
+
+        + Remove Folder: fs.rmdir("path", callbackFunc)
+
+        + Remove File: fs.unlink("path", callbackFunc)
+
+*/
