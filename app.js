@@ -2,31 +2,19 @@ const express = require('express')
 const app = express()
 app.listen(3000)
 
-/*
-
-    Send text/tag
-
-*/
-app.get('/text', function (req, res) {
-  res.send('Hello World')
-})
-
-
-
-
-/*
-
-    Send file
-
-*/
 app.get('/', function (req, res) {
-    // By default, the path is absolute path 
-    // We need to make it a relative path with the second parameter
-    // __dirname will return the current path of the current file 
-    res.sendFile("./views/index.html", {root: __dirname})
+    const blogs = [
+        {title: 'Yoshi finds eggs', snippet: 'Lorem ipsum dolor sit amet consectetur'},
+        {title: 'Mario finds stars', snippet: 'Lorem ipsum dolor sit amet consectetur'},
+        {title: 'How to defeat bowser', snippet: 'Lorem ipsum dolor sit amet consectetur'},
+    ];
+    res.render("index", { title: "Home", blogs })
 })
 app.get('/about', function (req, res) {
-    res.sendFile("./views/about.html", {root: __dirname})
+    res.render("about")
+})
+app.get('/blogs/create', function (req, res) {
+    res.render("create")
 })
 
 
@@ -34,25 +22,51 @@ app.get('/about', function (req, res) {
 
 /*
 
-    Redirect
+    View Engine
+
+        + View Engine helps to do dynamic data of html
+        
+        + View Engines: Express Handlebars, Pug, EJS
+    
+    EJS View Engine 
+    
+        + Step 1: npm i ejs 
+        
+        + Step 2: register view engine --> ejs 
+        
+        + Step 3: html folder --> by default, it will look at folder named views 
+        
+        + Step 4: create .ejs file instead of .html file
+
+        + Step 5: send back .ejs file using express --> render()
+
+    Create Dynamic Content 
+
+        + Using ejs tag
+
+        + Define variable: <% const name = "David" %>
+
+        + Export variable to html: <%= name %>
+
+        + Pass data from server to .ejs file: res.render("index", { title: "Home" })
+
+    Partials
+
+        + Partials help to create templated which is reusable 
+
+        + Syntax: <%- include(./partials/nav.ejs)  %> 
+        
+            --> export html tags
 
 */
-app.get('/about-us', function (req, res) {
-    res.redirect("/about")
-})
+
+// register view engine
+app.set('view engine', 'ejs');
+// app.set('views', 'myviews');
 
 
 
 
-/*
-
-    404 Page 
-
-    it does not automatically set the status code for us 
-
-    Must be at the bottom of the file !!!
-
-*/
 app.use((req, res) => {
-    res.status(404).sendFile('./views/404.html', { root: __dirname });
+    res.status(404).render("404");
 });
