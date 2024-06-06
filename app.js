@@ -6,6 +6,18 @@ app.set('view engine', 'ejs');
 // Port 
 app.listen(3000)
 
+// Middleware 
+app.use((req, res, next) => {
+    console.log('new request made:');
+    console.log('host: ', req.hostname);
+    console.log('path: ', req.path);
+    console.log('method: ', req.method);
+    next()
+});
+
+// middleware & static files: https://www.youtube.com/watch?v=_GJKAs7A0_4&list=PL4cUxeGkcC9jsz4LDYc6kv3ymONOKxwBU&index=8
+app.use(express.static('public'));
+
 // Home Page
 app.get('/', function (req, res) {
     const blogs = [
