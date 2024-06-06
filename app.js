@@ -17,15 +17,15 @@ app.get('/', function (req, res) {
 })
 // About Page 
 app.get('/about', function (req, res) {
-    res.render("about")
+    res.render("about", { title: "About"})
 })
 // Create-blog Page 
 app.get('/blogs/create', function (req, res) {
-    res.render("create")
+    res.render("create", { title: "Create Blog"})
 })
 // 404 Page
 app.use((req, res) => {
-    res.status(404).render("404");
+    res.status(404).render("404", { title: "404"});
 });
 
 

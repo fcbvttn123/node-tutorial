@@ -1,31 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %></title>
+    <%- include("./partials/head.ejs") %>
 </head>
 <body>
 
     <!-- Navigation -->
-    <nav>
-        <div>
-            <a href="/">Blogs</a>
-            <p>Blog Site</p>
-        </div>
-        <ul>
-            <li><a href="/">Blogs</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/blogs/create">New Blog</a></li>
-        </ul>
-    </nav>
+    <%- include("./partials/nav.ejs") %>
     
     <!-- All Blogs -->
     <div>
         <h2>All Blogs</h2>
-        <p>
-            <%= blogs.map(e => e.title) %>
-        </p>
+        <% if(blogs.length > 0) { %>
+            <% blogs.forEach(element => { %>
+                <div>
+                    <h3><%= element.title %></h3>
+                    <p><%= element.snippet %></p>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <p>No Blogs Yet</p>
+        <% } %>
     </div>
 
 </body>
