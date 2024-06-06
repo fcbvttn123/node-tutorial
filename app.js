@@ -1,7 +1,12 @@
+// Express Setup
 const express = require('express')
 const app = express()
+// View Engine Setup 
+app.set('view engine', 'ejs');
+// Port 
 app.listen(3000)
 
+// Home Page
 app.get('/', function (req, res) {
     const blogs = [
         {title: 'Yoshi finds eggs', snippet: 'Lorem ipsum dolor sit amet consectetur'},
@@ -10,12 +15,18 @@ app.get('/', function (req, res) {
     ];
     res.render("index", { title: "Home", blogs })
 })
+// About Page 
 app.get('/about', function (req, res) {
     res.render("about")
 })
+// Create-blog Page 
 app.get('/blogs/create', function (req, res) {
     res.render("create")
 })
+// 404 Page
+app.use((req, res) => {
+    res.status(404).render("404");
+});
 
 
 
@@ -32,7 +43,7 @@ app.get('/blogs/create', function (req, res) {
     
         + Step 1: npm i ejs 
         
-        + Step 2: register view engine --> ejs 
+        + Step 2: register view engine --> app.set('view engine', 'ejs');
         
         + Step 3: html folder --> by default, it will look at folder named views 
         
@@ -59,14 +70,3 @@ app.get('/blogs/create', function (req, res) {
             --> export html tags
 
 */
-
-// register view engine
-app.set('view engine', 'ejs');
-// app.set('views', 'myviews');
-
-
-
-
-app.use((req, res) => {
-    res.status(404).render("404");
-});
